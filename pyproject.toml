@@ -1,0 +1,12 @@
+[tool.flet]
+org = "mx.arqmetabolica"
+product = "ARQ-Metabolica MX"
+description = "Indice Arquitectonico de Riesgo de Resistencia a la Insulina"
+
+[tool.flet.app]
+module = "main"
+
+[project]
+name = "arq-metabolica-mx"
+version = "1.0.0"
+dependencies = ["flet", "numpy"]
