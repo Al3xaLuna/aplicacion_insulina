@@ -40,16 +40,16 @@ MUNICIPIOS = [
     {"nombre": "San Pablo Xochimehuacan", "AV": 0.50, "IC": 0.35, "ED": 0.20, "EAR": 0.60, "IM": 0.55},
     {"nombre": "Cuautlancingo",           "AV": 0.30, "IC": 0.20, "ED": 0.10, "EAR": 0.80, "IM": 0.70},
 ]
-
+#pantalla 3 eleccion de habitoss (manejo)
 VARIABLES = [
     {"key": "AV",  "label": "Áreas Verdes",                "icon": "🌳", "color": LOW,    "inv": True,  "desc": "Estándar OMS 9 m²/hab"},
     {"key": "IC",  "label": "Índice Caminabilidad",         "icon": "🚶", "color": ACCENT, "inv": True,  "desc": "Intersecciones + banquetas"},
-    {"key": "ED",  "label": "Equipamiento Deportivo",       "icon": "⚽", "color": ACCENT3,"inv": True,  "desc": "Equipamientos / población"},
-    {"key": "EAR", "label": "Entorno Alimentario Riesgoso", "icon": "🍟", "color": ACCENT2,"inv": False, "desc": "Tiendas ultraprocesados / total"},
+    {"key": "ED",  "label": "Entrenamientos con Actividad Fisica","icon": "⚽", "color": ACCENT3,"inv": True,  "desc": "Equipamientos / población"},
+    {"key": "EAR", "label": "Habitos Alimentarios  ", "icon": "🍟", "color": ACCENT2,"inv": False, "desc": "Tiendas ultraprocesados / total"},
     {"key": "IM",  "label": "Índice de Marginación",        "icon": "📉", "color": MID,    "inv": False, "desc": "CONAPO normalizado"},
 ]
 
-RECOMENDACIONES = [
+RECOMENDACIONES = [ #pantalla 4
     {"icon": "🌳", "color": LOW,    "titulo": "Incrementar Áreas Verdes",    "desc": "Corredores verdes y microparques. AV: 0.30 → 0.55", "impacto": "↓ IARRI −0.05 (−6.4%)"},
     {"icon": "🚶", "color": ACCENT, "titulo": "Ruta Diaria de 15 min",       "desc": "Banquetas accesibles e iluminación. IC: 0.20 → 0.45", "impacto": "↓ IARRI −0.0625 (−8%)"},
     {"icon": "⚽", "color": ACCENT3,"titulo": "Espacios Deportivos",          "desc": "2 unidades barriales abiertas. ED: 0.10 → 0.30", "impacto": "↓ IARRI −0.03 (−3.8%)"},
@@ -128,7 +128,7 @@ def barra_progreso(valor, color, height=5):
 
 def progress_bar_row(valor, color, height=6):
     """Barra de progreso que usa expand correctamente."""
-    return ft.Container(
+    return ft.Container(  #holis soy alexa jiji :3
         content=ft.Container(
             bgcolor=color,
             border_radius=3,
@@ -224,10 +224,10 @@ def build_inicio(page, state):
         margin=ft.margin.only(bottom=12),
     )
 
-    # Tarjetas de variables
+    # Tarjetas de variables para calculo de habitos 
     var_cards = []
     for v in VARIABLES:
-        val = muni[v["key"]]
+        val = muni[v["key"]] #municipio con su llave
         card = ft.Container(
             content=ft.Column([
                 ft.Row([
@@ -517,8 +517,7 @@ def build_mapa(page, state):
 # ═══════════════════════════════════════════════════════════
 def build_calculadora(page, state):
 
-    slider_vals = {v["key"]: state.get(f"slider_{v['key']}", 0.5) for v in VARIABLES}
-
+    slider_vals = {v["key"]: state.get(f"slider_{v['key']}", 0.0) for v in VARIABLES}
     result_txt   = ft.Text("—", size=52, weight=ft.FontWeight.W_900, color=ACCENT)
     nivel_txt    = ft.Text("—", size=14, weight=ft.FontWeight.BOLD, color=MUTED)
     prob_txt     = ft.Text("Prob. RI: —", size=12, color=MUTED)
@@ -676,7 +675,7 @@ def build_calculadora(page, state):
                     nivel_txt,
                     prob_txt,
                 ], horizontal_alignment=ft.CrossAxisAlignment.END),
-            ], alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
+            ], alignment=ft.MainAxisAlignment.SPACE_BETWEEN, #alineamiento de coordenada en ventana
                vertical_alignment=ft.CrossAxisAlignment.END),
             ft.Divider(height=1, color=BORDER),
             ft.Text("Desglose de Contribuciones", size=11, color=MUTED),
